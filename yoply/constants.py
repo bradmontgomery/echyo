@@ -5,6 +5,7 @@ USERS = {
     "j2pro": "j2pro",
     "bgwanson": "bgswanson",
     "thirstyrunner": "bgswanson",
+    "skippytpe": "skippytpe",
 }
 
 # My twitter handle (including the @ symbol)
