@@ -13,20 +13,21 @@ See `constants.py` to map Twitter Users to Yo Users.
 Usage
 -----
 
-This app requires a Twitter App Key and OAuth tokens, which it will read from
-the following environment variables:
+This app requires some environment variables containing you Twitter App Key and
+OAuth tokens:
 
 * `TWITTER_APP_KEY`
 * `TWITTER_APP_SECRET`
 * `TWITTER_OAUTH_TOKEN`
 * `TWITTER_OAUTH_TOKEN_SECRET`
 
+As well as your Yo Token:
 
-I stick these in `~/.twitter`, and run `source ~/.twitter` prior to running
-the filter.
+* `YO_TOKEN`
 
-Example usage:
+I stick these in `~/.twitter` and `~/.yo`, and source them prior to running
+the app. Example usage:
 
-    $ source ~/.twitter && python yoply/main.py
+    $ source ~/.twitter && source ~/.yo && python yoply/main.py
 
 That's it.

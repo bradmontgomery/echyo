@@ -2,7 +2,7 @@
 USERS = {
     "brob": "landulf",
     "finnious": "finnious",
-    "fullcoffers": "fullcoffers",
+    "j2pro": "j2pro",
 }
 
 # My twitter handle (including the @ symbol)

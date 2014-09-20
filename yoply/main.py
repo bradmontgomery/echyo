@@ -1,21 +1,23 @@
 from os import environ
 from sys import exit, stderr, stdout
 from twython import TwythonStreamer
+from yo import Yo
 
 import constants
 
 
-class StreamNotifier(TwythonStreamer):
+class YoFilter(TwythonStreamer):
     """A Custom Streamer for the Twitter Streaming API.
 
     Requires Twitter creds (app key/secret, oauth token/secret). E.g.:
 
-        stream = StreamNotifier(
+        stream = YoFilter(
             environ['TWITTER_APP_KEY'],
             environ['TWITTER_APP_SECRET'],
             environ['TWITTER_OAUTH_TOKEN'],
             environ['TWITTER_OAUTH_TOKEN_SECRET'],
-            exit_on_error=True
+            exit_on_error=True,
+            yo_token=environ['YO_TOKEN']
         )
 
     For more info, see:
@@ -26,11 +28,14 @@ class StreamNotifier(TwythonStreamer):
     """
 
     def __init__(self, *args, **kwargs):
+        self.yo_client = Yo(kwargs.pop("yo_token"))
         self.exit_on_error = kwargs.pop("exit_on_error", False)
-        return super(StreamNotifier, self).__init__(*args, **kwargs)
+        return super(YoFilter, self).__init__(*args, **kwargs)
 
-    def yo(self):
-        stdout.write("---> Yo!\n")
+    def yo(self, user):
+        stdout.write(u"- Sending Yo to {0}...".format(user))
+        self.yo_client.yo(username=user)
+        stdout.write("- YO'ed!\n")
 
     def _valid_mention(self, text, screen_name):
         """See if I'm being metioned by someone who has a Yo account"""
@@ -40,7 +45,8 @@ class StreamNotifier(TwythonStreamer):
         if 'text' in data:
             user = data['user']['screen_name'].lower()
             if self._valid_mention(data['text'], user):
-                print("Yo! to {0}".format(user))
+                print(u"MATCHED: {0} -- from {1}".format(data['text'], user))
+                self.yo(constants.USERS[user])
 
     def on_error(self, status_code, data):
         stderr.write(u"ERROR: {0}\n".format(status_code))
@@ -49,12 +55,13 @@ class StreamNotifier(TwythonStreamer):
 
 
 def get_stream_notifier():
-    return StreamNotifier(
+    return YoFilter(
         environ['TWITTER_APP_KEY'],
         environ['TWITTER_APP_SECRET'],
         environ['TWITTER_OAUTH_TOKEN'],
         environ['TWITTER_OAUTH_TOKEN_SECRET'],
-        exit_on_error=True
+        exit_on_error=True,
+        yo_token=environ['YO_TOKEN']
     )
 
 
