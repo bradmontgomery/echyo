@@ -1,9 +1,9 @@
-Yoply!
-======
+Yoply! or Echyo.
+================
 
 When someone tweets at me, reply with a Yo!
 
-Yo! Reply. Yoply!
+Yo! Reply. Yoply! Or Echo Yo... EchYo!
 
 Configuration
 -------------
