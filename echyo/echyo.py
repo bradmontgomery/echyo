@@ -39,14 +39,14 @@ class MentionFilter(TwythonStreamer):
 
     def _valid_mention(self, text, screen_name):
         """See if I'm being metioned by someone who has a Yo account"""
-        return text.startswith(people.ME) and screen_name in people.USERS.keys()
+        return text.startswith(people.ME) and screen_name in people.FRIENDS.keys()
 
     def on_success(self, data):
         if 'text' in data:
             user = data['user']['screen_name'].lower()
             if self._valid_mention(data['text'], user):
                 print(u"MATCHED: {0} -- from {1}".format(data['text'], user))
-                self.yo(people.USERS[user])
+                self.yo(people.FRIENDS[user])
 
     def on_error(self, status_code, data):
         stderr.write(u"ERROR: {0}\n".format(status_code))
