@@ -1,2 +1,2 @@
-python-yo==0.1.0
 twython==3.1.2
+requests==2.3.0

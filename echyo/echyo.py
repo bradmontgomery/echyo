@@ -1,9 +1,22 @@
 from os import environ
 from sys import exit, stderr, stdout
 from twython import TwythonStreamer
-from yo import Yo
 
+import requests
 import people
+
+
+class Yo(object):
+    """simple Yo class to make Yo work correctly."""
+    def __init__(self, api_token):
+        self.api_token = api_token
+
+    def yo(self, username):
+        payload = {
+            "api_token": self.api_token,
+            "username": username,
+        }
+        requests.post("http://api.justyo.co/yo/", data=payload)
 
 
 class MentionFilter(TwythonStreamer):
