@@ -3,15 +3,15 @@ from sys import exit, stderr, stdout
 from twython import TwythonStreamer
 from yo import Yo
 
-import constants
+import people
 
 
-class YoFilter(TwythonStreamer):
-    """A Custom Streamer for the Twitter Streaming API.
+class MentionFilter(TwythonStreamer):
+    """Watches the Twitter Streaming api (user) for mentions from friends.
 
-    Requires Twitter creds (app key/secret, oauth token/secret). E.g.:
+    Requires Twitter credentials (app key/secret, oauth token/secret). E.g.:
 
-        stream = YoFilter(
+        stream = MentionFilter(
             environ['TWITTER_APP_KEY'],
             environ['TWITTER_APP_SECRET'],
             environ['TWITTER_OAUTH_TOKEN'],
@@ -30,7 +30,7 @@ class YoFilter(TwythonStreamer):
     def __init__(self, *args, **kwargs):
         self.yo_client = Yo(kwargs.pop("yo_token"))
         self.exit_on_error = kwargs.pop("exit_on_error", False)
-        return super(YoFilter, self).__init__(*args, **kwargs)
+        return super(MentionFilter, self).__init__(*args, **kwargs)
 
     def yo(self, user):
         stdout.write(u"- Sending Yo to {0}...".format(user))
@@ -39,14 +39,14 @@ class YoFilter(TwythonStreamer):
 
     def _valid_mention(self, text, screen_name):
         """See if I'm being metioned by someone who has a Yo account"""
-        return text.startswith(constants.ME) and screen_name in constants.USERS.keys()
+        return text.startswith(people.ME) and screen_name in people.USERS.keys()
 
     def on_success(self, data):
         if 'text' in data:
             user = data['user']['screen_name'].lower()
             if self._valid_mention(data['text'], user):
                 print(u"MATCHED: {0} -- from {1}".format(data['text'], user))
-                self.yo(constants.USERS[user])
+                self.yo(people.USERS[user])
 
     def on_error(self, status_code, data):
         stderr.write(u"ERROR: {0}\n".format(status_code))
@@ -55,7 +55,7 @@ class YoFilter(TwythonStreamer):
 
 
 def get_stream_notifier():
-    return YoFilter(
+    return MentionFilter(
         environ['TWITTER_APP_KEY'],
         environ['TWITTER_APP_SECRET'],
         environ['TWITTER_OAUTH_TOKEN'],
@@ -67,5 +67,5 @@ def get_stream_notifier():
 
 if __name__ == "__main__":
     stream = get_stream_notifier()
-    tracked_username = "{0}".format(constants.ME)
+    tracked_username = "{0}".format(people.ME)
     stream.user(replies='all', track=tracked_username)

@@ -1,20 +1,18 @@
-Yoply! or Echyo.
-================
+Echyo
+=====
 
-When someone tweets at me, reply with a Yo!
+When someone tweets at me, this will automatically reply with a Yo!
 
-Yo! Reply. Yoply! Or Echo Yo... EchYo!
-
-Configuration
+Want to play?
 -------------
 
-See `constants.py` to map Twitter Users to Yo Users.
+Add yourself as a friend to `people.py`, and send me a pull request.
 
-Usage
------
+Environment
+-----------
 
-This app requires some environment variables containing you Twitter App Key and
-OAuth tokens:
+If you want to take this app and run it yourself, you'll need some environment
+variables containing you Twitter App Key and OAuth tokens:
 
 * `TWITTER_APP_KEY`
 * `TWITTER_APP_SECRET`
@@ -25,9 +23,9 @@ As well as your Yo Token:
 
 * `YO_TOKEN`
 
-I stick these in `~/.twitter` and `~/.yo`, and source them prior to running
-the app. Example usage:
+I stick these in a dotfile somewhere (e.g. `~/.echyo`), and source them prior
+to running the app. Example usage:
 
-    $ source ~/.twitter && source ~/.yo && python yoply/main.py
+    $ source ~/.echyo && python echyo/echyo.py
 
 That's it.

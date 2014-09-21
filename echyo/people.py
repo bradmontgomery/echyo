@@ -1,5 +1,8 @@
 # Maps twitter users to Yo users
-USERS = {
+#
+#   {twitter: yo}
+#
+FRIENDS = {
     "brob": "landulf",
     "finnious": "finnious",
     "j2pro": "j2pro",
