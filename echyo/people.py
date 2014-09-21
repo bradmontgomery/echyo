@@ -10,6 +10,8 @@ FRIENDS = {
     "thirstyrunner": "bgswanson",
     "skippytpe": "skippytpe",
     "dpritchett": "dpritchett",
+    "geekblogtv": "geekblogtv",
+    "eterps": "eterps",
 }
 
 # My twitter handle (including the @ symbol)
