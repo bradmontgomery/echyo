@@ -12,7 +12,7 @@ Environment
 -----------
 
 If you want to take this app and run it yourself, you'll need some environment
-variables containing you Twitter App Key and OAuth tokens:
+variables containing your Twitter App Key and OAuth tokens:
 
 * `TWITTER_APP_KEY`
 * `TWITTER_APP_SECRET`
